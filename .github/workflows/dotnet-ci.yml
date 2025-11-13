@@ -20,7 +20,10 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Restore dependencies
-      run: dotnet restore ./SampleApi/SampleApi.csproj
+      run: dotnet restore
 
     - name: Build
-      run: dotnet build ./SampleApi/SampleApi.csproj --configuration Release --no-restore
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
