@@ -19,11 +19,11 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    - name: Restore dependencies
-      run: dotnet restore
+    - name: Restore
+      run: dotnet restore BackendPractice.sln
 
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build BackendPractice.sln --configuration Debug --no-restore
 
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test SampleApi.Tests/SampleApi.Tests.csproj --no-build --verbosity normal
