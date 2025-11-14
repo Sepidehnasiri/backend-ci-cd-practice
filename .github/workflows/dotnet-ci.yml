@@ -1,4 +1,4 @@
-name: .NET CI
+name: .NET CI/CD
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  build-test-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,7 +23,21 @@ jobs:
       run: dotnet restore BackendPractice.sln
 
     - name: Build
-      run: dotnet build BackendPractice.sln --configuration Debug --no-restore
+      run: dotnet build BackendPractice.sln --configuration Release --no-restore
 
     - name: Test
       run: dotnet test SampleApi.Tests/SampleApi.Tests.csproj --no-build --verbosity normal
+
+    - name: Publish web app
+      run: dotnet publish SampleApi/SampleApi.csproj -c Release -o published
+
+    - name: Azure Login
+      uses: azure/login@v2
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'sepideh-ci-api'        # <-- change if your app name is different
+        package: ./published
