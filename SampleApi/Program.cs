@@ -1,14 +1,14 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+// You can add services here later if needed
+// builder.Services.Add...();
+
 var app = builder.Build();
 
-app.MapGet("/weatherforecast", () => "Hello from CI/CD practice this is Sepideh 2!");
+// Simple health check endpoint
+app.MapGet("/", () => "API is running");
+
+// Weather endpoint
+app.MapGet("/weatherforecast", () => "Hello from Sepideh's CI/CD API!");
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
