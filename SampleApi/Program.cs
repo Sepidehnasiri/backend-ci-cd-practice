@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 var app = builder.Build();
 
-app.MapGet("/weatherforecast", () => "Hello from CI/CD practice!");
+app.MapGet("/weatherforecast", () => "Hello from CI/CD practice this is Sepideh!");
 
 app.Run();
 
